@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  {%load static%}
+  <head>
+    <meta charset="utf-8" />
+    <title>Search Your Foods | Dishcovery</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/upload-button.css' %}">
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="title-container">
+        <h1 id="titleH1">Dishcovery</h1>
+        <img
+          id="titleImg"
+          src="https://postfiles.pstatic.net/MjAyMzEwMTlfNzQg/MDAxNjk3NzExNjg0MjE1.WKyWNqlVtfVbmJe2hHUielq8AyVUin__KCUuBiGC7uEg.VYNmaIKJWmcsMHrFoj3giU-pV1nyqZiN1k_myxuVl9og.PNG.jimindk/plate.png?type=w773"
+        />
+      </div>
+      <div class="search">
+        <input
+          type="text"
+          id="searchInput" placeholder="음식명 혹은 종류를 입력하세요"
+          />
+        <select id="tagSelect">
+          <option value="name">Name</option>
+          <option value="type">Type</option>
+          <option value="image">Image</option>
+          <option value="ai">AI</option>
+        </select>
+        <button id="searchButton">검색</button>
+      </div>
+    </div><span>example: 김치, 감자, 라면, 식혜...</span>
+    <button class="chatbot-toggler">
+      <span class="material-symbols-rounded">mode_comment</span>
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <div class="chatbot">
+      <header>
+        <h2>Dishcovery</h2>
+        <span class="close-btn material-symbols-outlined">close</span>
+      </header>
+      <ul class="chatbox">
+        <li class="chat incoming">
+          <span class="material-symbols-outlined">smart_toy</span>
+          <p>안녕하세요 👋<br />Dishcovery입니다!<br />무엇을 도와드릴까요?</p>
+        </li>
+      </ul>
+      <div class="chat-input">
+        <textarea
+          placeholder="Enter a message..."
+          spellcheck="false"
+          required
+        ></textarea>
+        <span id="send-btn" class="material-symbols-rounded">send</span>
+      </div>
+    </div>
+    <div id="meal-list" class="meal-list">
+      
+      
+    </div>
+    <form action="/classify_image/" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" id="file-input" style="display: none;" />
+      <div class="button" id="upload-button">
+          <a>
+              <span>Upload Now</span>
+          <svg class="load" version="1.1"x="0px" y="0px" width="30px" height="30px" viewBox="0 0 40 40" enable-background="new 0 0 40 40">
+              <path opacity="0.3" fill="#fff" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+          s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+          c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+          <path fill="#fff" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+          C22.32,8.481,24.301,9.057,26.013,10.047z">
+          <animateTransform attributeType="xml"
+          attributeName="transform"
+          type="rotate"
+          from="0 20 20"
+          to="360 20 20"
+          dur="0.5s"
+          repeatCount="indefinite"/>
+          </path>
+
+          </svg>
+          <svg class="check" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+      </a>
+      <div>
+          <span></span>
+      </div>
+  </div>
+</form>
+<div id="result"></div>
+    <div class="modal-container" id="modal-container">
+      <button id="recipeCloseBtn" class="close-button">&times;</button>
+      <div class="meal-details-content" id="meal-details-content"></div>
+
+    <script src="{% static 'javascript/search.js' %}"></script>
+    <script src="{% static 'javascript/upload-button.js' %}"></script>
+  </body>
+</html>
