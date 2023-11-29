@@ -3,7 +3,6 @@
 requirements.txt
 #no secret.json files
 *secret.json
-*settings.py
 #no config files
 config/
 migrations/
